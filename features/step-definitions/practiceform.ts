@@ -9,31 +9,31 @@ Given(/^I am on practice page \"([^\"]*)\"$/, async function (appurl:string) {
 });
 
 Then(/^I validate page header \"([^\"]*)\"$/,async  function (headertext:string) {
-    await expect(appData.header).toHaveText(headertext);
+    await expect(appData.getHeader()).toHaveText(headertext);
     
 });
 
 When(/^I enter firstname (.+) and lastname (.+)$/, async function (fname:string, lname:string) {
-    await (await appData.fname).setValue(fname)
-    await (await appData.lname).setValue(lname)
 
-    
+    await appData.enterfirstname(fname)
+    await appData.enterlastname(lname)
+   
 });
 
 
 When(/^I select gender (.+) years (.+) date (.+) favourite chai (.+) and reason (.+)$/, async function (gender:string, yrs:string, date:string, favchai:string, reason:string) {
-    await appData.selectdropdown(await appData.gender_radio,gender)
-    await appData.selectdropdown(await appData.experience,yrs)
-    await (await appData.date).setValue(date);
-    await appData.selectdropdown(await appData.favouritechai_checkbox,favchai)
-    await appData.selectdropdown(await appData.excitingchai_checkbox,reason)
+    await appData.selectGender(gender)
+    await appData.selectExperience(yrs)
+    await appData.enterdate(date)
+    await appData.selectfavouriteChai(favchai)
+    await appData.selectexcitingchaireason(reason)
 
 
 });
 
 When(/^I select continent (.+) and commands (.+)$/,async  function (continent:string, command:string) {
-    await (await appData.continent_dropdown).selectByVisibleText(continent)
-    await (await appData.selcommands).selectByVisibleText(command)
+    await appData.selectContinent(continent)
+    await appData.selectCommand(command)
 
     
 });
@@ -41,7 +41,7 @@ When(/^I select continent (.+) and commands (.+)$/,async  function (continent:st
 
 
 When(/^I click on submit button$/, async function () {
-    await(await appData.submit_btn).click()
+    await appData.clickonsubmit()
     
 });
 
